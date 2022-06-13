@@ -17,11 +17,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class bearCalc {
 
 	private JFrame frame;
 	private int mouseX, mouseY;
+	private String value = "";
+	private JTextField textFieldInput;
 
 	/**
 	 * Launch the application.
@@ -96,18 +99,11 @@ public class bearCalc {
 		btnClose.setBorderPainted(false);
 		btnClose.setBackground(new Color(0, 95, 95));
 		
-		
-		JLabel lblEnterSyntax = new JLabel("New label");
-		lblEnterSyntax.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 40));
-		lblEnterSyntax.setForeground(Color.WHITE);
-		lblEnterSyntax.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblEnterSyntax.setBounds(10, 63, 341, 118);
-		frame.getContentPane().add(lblEnterSyntax);
-		
 		JButton btnSeven = new JButton("7");
 		btnSeven.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
+			public void actionPerformed(ActionEvent e) {
+				value += "7";
+				textFieldInput.setText(value);
 			}
 		});
 		frame.getContentPane().add(btnSeven);
@@ -118,70 +114,122 @@ public class bearCalc {
 		btnSeven.setForeground(Color.WHITE);
 		btnSeven.setBounds(10, 192, 60, 60);
 		
-		JButton btnSeven_1 = new JButton("4");
-		btnSeven_1.setForeground(Color.WHITE);
-		btnSeven_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_1.setFocusPainted(false);
-		btnSeven_1.setBorderPainted(false);
-		btnSeven_1.setBackground(new Color(0, 95, 95));
-		btnSeven_1.setBounds(10, 263, 60, 60);
-		frame.getContentPane().add(btnSeven_1);
+		JButton btnFour = new JButton("4");
+		btnFour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += "4";
+				textFieldInput.setText(value);
+			}
+		});
+		btnFour.setForeground(Color.WHITE);
+		btnFour.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnFour.setFocusPainted(false);
+		btnFour.setBorderPainted(false);
+		btnFour.setBackground(new Color(0, 95, 95));
+		btnFour.setBounds(10, 263, 60, 60);
+		frame.getContentPane().add(btnFour);
 		
-		JButton btnSeven_2 = new JButton("1");
-		btnSeven_2.setForeground(Color.WHITE);
-		btnSeven_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_2.setFocusPainted(false);
-		btnSeven_2.setBorderPainted(false);
-		btnSeven_2.setBackground(new Color(0, 95, 95));
-		btnSeven_2.setBounds(10, 334, 60, 60);
-		frame.getContentPane().add(btnSeven_2);
+		JButton btnOne = new JButton("1");
+		btnOne.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += "1";
+				textFieldInput.setText(value);
+			}
+		});
+		btnOne.setForeground(Color.WHITE);
+		btnOne.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnOne.setFocusPainted(false);
+		btnOne.setBorderPainted(false);
+		btnOne.setBackground(new Color(0, 95, 95));
+		btnOne.setBounds(10, 334, 60, 60);
+		frame.getContentPane().add(btnOne);
 		
-		JButton btnSeven_3 = new JButton("0");
-		btnSeven_3.setForeground(Color.WHITE);
-		btnSeven_3.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_3.setFocusPainted(false);
-		btnSeven_3.setBorderPainted(false);
-		btnSeven_3.setBackground(new Color(0, 95, 95));
-		btnSeven_3.setBounds(10, 405, 60, 60);
-		frame.getContentPane().add(btnSeven_3);
+		JButton btnZero = new JButton("0");
+		btnZero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += "0";
+				textFieldInput.setText(value);
+			}
+		});
+		btnZero.setForeground(Color.WHITE);
+		btnZero.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnZero.setFocusPainted(false);
+		btnZero.setBorderPainted(false);
+		btnZero.setBackground(new Color(0, 95, 95));
+		btnZero.setBounds(10, 405, 60, 60);
+		frame.getContentPane().add(btnZero);
 		
-		JButton btnSeven_4 = new JButton("8");
-		btnSeven_4.setForeground(Color.WHITE);
-		btnSeven_4.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_4.setFocusPainted(false);
-		btnSeven_4.setBorderPainted(false);
-		btnSeven_4.setBackground(new Color(0, 95, 95));
-		btnSeven_4.setBounds(80, 191, 60, 60);
-		frame.getContentPane().add(btnSeven_4);
+		JButton btnEight = new JButton("8");
+		btnEight.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += "8";
+				textFieldInput.setText(value);
+			}
+		});
+		btnEight.setForeground(Color.WHITE);
+		btnEight.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnEight.setFocusPainted(false);
+		btnEight.setBorderPainted(false);
+		btnEight.setBackground(new Color(0, 95, 95));
+		btnEight.setBounds(80, 191, 60, 60);
+		frame.getContentPane().add(btnEight);
 		
-		JButton btnSeven_5 = new JButton("5");
-		btnSeven_5.setForeground(Color.WHITE);
-		btnSeven_5.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_5.setFocusPainted(false);
-		btnSeven_5.setBorderPainted(false);
-		btnSeven_5.setBackground(new Color(0, 95, 95));
-		btnSeven_5.setBounds(80, 263, 60, 60);
-		frame.getContentPane().add(btnSeven_5);
+		JButton btnFive = new JButton("5");
+		btnFive.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += "5";
+				textFieldInput.setText(value);
+			}
+		});
+		btnFive.setForeground(Color.WHITE);
+		btnFive.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnFive.setFocusPainted(false);
+		btnFive.setBorderPainted(false);
+		btnFive.setBackground(new Color(0, 95, 95));
+		btnFive.setBounds(80, 263, 60, 60);
+		frame.getContentPane().add(btnFive);
 		
-		JButton btnSeven_6 = new JButton("2");
-		btnSeven_6.setForeground(Color.WHITE);
-		btnSeven_6.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_6.setFocusPainted(false);
-		btnSeven_6.setBorderPainted(false);
-		btnSeven_6.setBackground(new Color(0, 95, 95));
-		btnSeven_6.setBounds(80, 334, 60, 60);
-		frame.getContentPane().add(btnSeven_6);
+		JButton btnTwo = new JButton("2");
+		btnTwo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += "2";
+				textFieldInput.setText(value);
+			}
+		});
+		btnTwo.setForeground(Color.WHITE);
+		btnTwo.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnTwo.setFocusPainted(false);
+		btnTwo.setBorderPainted(false);
+		btnTwo.setBackground(new Color(0, 95, 95));
+		btnTwo.setBounds(80, 334, 60, 60);
+		frame.getContentPane().add(btnTwo);
 		
-		JButton btnSeven_7 = new JButton(".");
-		btnSeven_7.setForeground(Color.WHITE);
-		btnSeven_7.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_7.setFocusPainted(false);
-		btnSeven_7.setBorderPainted(false);
-		btnSeven_7.setBackground(new Color(0, 95, 95));
-		btnSeven_7.setBounds(80, 405, 60, 60);
-		frame.getContentPane().add(btnSeven_7);
+		JButton btnPoint = new JButton(".");
+		btnPoint.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += ".";
+				textFieldInput.setText(value);
+			}
+		});
+		btnPoint.setForeground(Color.WHITE);
+		btnPoint.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnPoint.setFocusPainted(false);
+		btnPoint.setBorderPainted(false);
+		btnPoint.setBackground(new Color(0, 95, 95));
+		btnPoint.setBounds(80, 405, 60, 60);
+		frame.getContentPane().add(btnPoint);
 		
 		JButton btnBck = new JButton("BCK");
+		btnBck.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(textFieldInput.getText().length() > 0) {
+					StringBuilder sb = new StringBuilder(textFieldInput.getText());
+					sb.deleteCharAt(textFieldInput.getText().length()-1);
+					value = sb.toString();
+					textFieldInput.setText(value);
+				}
+			}
+		});
 		btnBck.setForeground(Color.WHITE);
 		btnBck.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 		btnBck.setFocusPainted(false);
@@ -190,95 +238,159 @@ public class bearCalc {
 		btnBck.setBounds(150, 405, 60, 60);
 		frame.getContentPane().add(btnBck);
 		
-		JButton btnSeven_9 = new JButton("+");
-		btnSeven_9.setForeground(Color.WHITE);
-		btnSeven_9.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_9.setFocusPainted(false);
-		btnSeven_9.setBorderPainted(false);
-		btnSeven_9.setBackground(new Color(0, 95, 95));
-		btnSeven_9.setBounds(220, 405, 60, 60);
-		frame.getContentPane().add(btnSeven_9);
+		JButton btnAddition = new JButton("+");
+		btnAddition.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += "+";
+				textFieldInput.setText(value);
+			}
+		});
+		btnAddition.setForeground(Color.WHITE);
+		btnAddition.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnAddition.setFocusPainted(false);
+		btnAddition.setBorderPainted(false);
+		btnAddition.setBackground(new Color(0, 95, 95));
+		btnAddition.setBounds(220, 405, 60, 60);
+		frame.getContentPane().add(btnAddition);
 		
-		JButton btnSeven_10 = new JButton("=");
-		btnSeven_10.setForeground(Color.WHITE);
-		btnSeven_10.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_10.setFocusPainted(false);
-		btnSeven_10.setBorderPainted(false);
-		btnSeven_10.setBackground(new Color(0, 95, 95));
-		btnSeven_10.setBounds(290, 334, 60, 131);
-		frame.getContentPane().add(btnSeven_10);
+		JButton btnEquals = new JButton("=");
+		btnEquals.setForeground(Color.WHITE);
+		btnEquals.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnEquals.setFocusPainted(false);
+		btnEquals.setBorderPainted(false);
+		btnEquals.setBackground(new Color(0, 95, 95));
+		btnEquals.setBounds(290, 334, 60, 131);
+		frame.getContentPane().add(btnEquals);
 		
-		JButton btnSeven_11 = new JButton("3");
-		btnSeven_11.setForeground(Color.WHITE);
-		btnSeven_11.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_11.setFocusPainted(false);
-		btnSeven_11.setBorderPainted(false);
-		btnSeven_11.setBackground(new Color(0, 95, 95));
-		btnSeven_11.setBounds(150, 334, 60, 60);
-		frame.getContentPane().add(btnSeven_11);
+		JButton btnThree = new JButton("3");
+		btnThree.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += "3";
+				textFieldInput.setText(value);
+			}
+		});
+		btnThree.setForeground(Color.WHITE);
+		btnThree.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnThree.setFocusPainted(false);
+		btnThree.setBorderPainted(false);
+		btnThree.setBackground(new Color(0, 95, 95));
+		btnThree.setBounds(150, 334, 60, 60);
+		frame.getContentPane().add(btnThree);
 		
-		JButton btnSeven_12 = new JButton("6");
-		btnSeven_12.setForeground(Color.WHITE);
-		btnSeven_12.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_12.setFocusPainted(false);
-		btnSeven_12.setBorderPainted(false);
-		btnSeven_12.setBackground(new Color(0, 95, 95));
-		btnSeven_12.setBounds(150, 263, 60, 60);
-		frame.getContentPane().add(btnSeven_12);
+		JButton btnSix = new JButton("6");
+		btnSix.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += "6";
+				textFieldInput.setText(value);
+			}
+		});
+		btnSix.setForeground(Color.WHITE);
+		btnSix.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnSix.setFocusPainted(false);
+		btnSix.setBorderPainted(false);
+		btnSix.setBackground(new Color(0, 95, 95));
+		btnSix.setBounds(150, 263, 60, 60);
+		frame.getContentPane().add(btnSix);
 		
-		JButton btnSeven_13 = new JButton("9");
-		btnSeven_13.setForeground(Color.WHITE);
-		btnSeven_13.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_13.setFocusPainted(false);
-		btnSeven_13.setBorderPainted(false);
-		btnSeven_13.setBackground(new Color(0, 95, 95));
-		btnSeven_13.setBounds(150, 192, 60, 60);
-		frame.getContentPane().add(btnSeven_13);
+		JButton btnNine = new JButton("9");
+		btnNine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += "9";
+				textFieldInput.setText(value);
+			}
+		});
+		btnNine.setForeground(Color.WHITE);
+		btnNine.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnNine.setFocusPainted(false);
+		btnNine.setBorderPainted(false);
+		btnNine.setBackground(new Color(0, 95, 95));
+		btnNine.setBounds(150, 192, 60, 60);
+		frame.getContentPane().add(btnNine);
 		
-		JButton btnSeven_14 = new JButton("/");
-		btnSeven_14.setForeground(Color.WHITE);
-		btnSeven_14.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_14.setFocusPainted(false);
-		btnSeven_14.setBorderPainted(false);
-		btnSeven_14.setBackground(new Color(0, 95, 95));
-		btnSeven_14.setBounds(220, 192, 60, 60);
-		frame.getContentPane().add(btnSeven_14);
+		JButton btnDivision = new JButton("/");
+		btnDivision.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += "/";
+				textFieldInput.setText(value);
+			}
+		});
+		btnDivision.setForeground(Color.WHITE);
+		btnDivision.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnDivision.setFocusPainted(false);
+		btnDivision.setBorderPainted(false);
+		btnDivision.setBackground(new Color(0, 95, 95));
+		btnDivision.setBounds(220, 192, 60, 60);
+		frame.getContentPane().add(btnDivision);
 		
-		JButton btnSeven_15 = new JButton("\u00D7");
-		btnSeven_15.setForeground(Color.WHITE);
-		btnSeven_15.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_15.setFocusPainted(false);
-		btnSeven_15.setBorderPainted(false);
-		btnSeven_15.setBackground(new Color(0, 95, 95));
-		btnSeven_15.setBounds(220, 263, 60, 60);
-		frame.getContentPane().add(btnSeven_15);
+		JButton btnMultiplication = new JButton("\u00D7");
+		btnMultiplication.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += "\u00D7";
+				textFieldInput.setText(value);}
+		});
+		btnMultiplication.setForeground(Color.WHITE);
+		btnMultiplication.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnMultiplication.setFocusPainted(false);
+		btnMultiplication.setBorderPainted(false);
+		btnMultiplication.setBackground(new Color(0, 95, 95));
+		btnMultiplication.setBounds(220, 263, 60, 60);
+		frame.getContentPane().add(btnMultiplication);
 		
-		JButton btnSeven_16 = new JButton("-");
-		btnSeven_16.setForeground(Color.WHITE);
-		btnSeven_16.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_16.setFocusPainted(false);
-		btnSeven_16.setBorderPainted(false);
-		btnSeven_16.setBackground(new Color(0, 95, 95));
-		btnSeven_16.setBounds(220, 334, 60, 60);
-		frame.getContentPane().add(btnSeven_16);
+		JButton btnSubtraction = new JButton("-");
+		btnSubtraction.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += "-";
+				textFieldInput.setText(value);
+			}
+		});
+		btnSubtraction.setForeground(Color.WHITE);
+		btnSubtraction.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnSubtraction.setFocusPainted(false);
+		btnSubtraction.setBorderPainted(false);
+		btnSubtraction.setBackground(new Color(0, 95, 95));
+		btnSubtraction.setBounds(220, 334, 60, 60);
+		frame.getContentPane().add(btnSubtraction);
 		
-		JButton btnSeven_17 = new JButton("()");
-		btnSeven_17.setForeground(Color.WHITE);
-		btnSeven_17.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnSeven_17.setFocusPainted(false);
-		btnSeven_17.setBorderPainted(false);
-		btnSeven_17.setBackground(new Color(0, 95, 95));
-		btnSeven_17.setBounds(290, 263, 60, 60);
-		frame.getContentPane().add(btnSeven_17);
+		JButton btnParentheses = new JButton("()");
+		btnParentheses.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnParentheses.setForeground(Color.WHITE);
+		btnParentheses.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnParentheses.setFocusPainted(false);
+		btnParentheses.setBorderPainted(false);
+		btnParentheses.setBackground(new Color(0, 95, 95));
+		btnParentheses.setBounds(290, 263, 60, 60);
+		frame.getContentPane().add(btnParentheses);
 		
-		JButton btnAc = new JButton("AC");
-		btnAc.setForeground(Color.WHITE);
-		btnAc.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnAc.setFocusPainted(false);
-		btnAc.setBorderPainted(false);
-		btnAc.setBackground(new Color(0, 95, 95));
-		btnAc.setBounds(290, 192, 60, 60);
-		frame.getContentPane().add(btnAc);
+		JButton btnAllClear = new JButton("AC");
+		btnAllClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFieldInput.setText("");
+				value = "";
+			}
+		});
+		btnAllClear.setForeground(Color.WHITE);
+		btnAllClear.setFont(new Font("Segoe UI Black", Font.PLAIN, 17));
+		btnAllClear.setFocusPainted(false);
+		btnAllClear.setBorderPainted(false);
+		btnAllClear.setBackground(new Color(0, 95, 95));
+		btnAllClear.setBounds(290, 192, 60, 60);
+		frame.getContentPane().add(btnAllClear);
+		
+		textFieldInput = new JTextField();
+		textFieldInput.setEditable(false);
+		textFieldInput.setText("0");
+		textFieldInput.setForeground(Color.WHITE);
+		textFieldInput.setHorizontalAlignment(SwingConstants.RIGHT);
+		textFieldInput.setFont(new Font("Segoe UI", Font.PLAIN, 50));
+		textFieldInput.setBackground(new Color(0, 115, 115));
+		textFieldInput.setBounds(10, 63, 340, 118);
+		textFieldInput.setBorder(null);
+		frame.getContentPane().add(textFieldInput);
+		textFieldInput.setColumns(10);
+		
 		
 	}
 }
