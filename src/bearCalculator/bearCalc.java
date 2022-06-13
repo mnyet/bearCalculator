@@ -54,7 +54,7 @@ public class bearCalc {
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("X");
+		JLabel lblNewLabel = new JLabel("XputanginaXD");
 		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lblNewLabel.setForeground(SystemColor.textHighlightText);
 		lblNewLabel.setBounds(269, 11, 21, 20);
