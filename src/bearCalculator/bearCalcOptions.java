@@ -18,6 +18,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 
 public class bearCalcOptions {
 
@@ -59,7 +60,7 @@ public class bearCalcOptions {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setUndecorated(true);
-		frame.setBounds(100, 100, 269, 368);
+		frame.setBounds(100, 100, 586, 368);
 		frame.setLocationRelativeTo(null);
 		
 		JPanel panelTitleBar = new JPanel();
@@ -80,7 +81,7 @@ public class bearCalcOptions {
 		});
 		
 		panelTitleBar.setBackground(new Color(33, 33, 33));
-		panelTitleBar.setBounds(0, 0, 275, 52);
+		panelTitleBar.setBounds(0, 0, 586, 52);
 		frame.getContentPane().add(panelTitleBar);
 		panelTitleBar.setLayout(null);
 		
@@ -92,7 +93,7 @@ public class bearCalcOptions {
 		});
 		
 		panelTitleBar.setLayout(null);
-		btnClose.setBounds(212, 11, 53, 33);
+		btnClose.setBounds(523, 11, 53, 33);
 		panelTitleBar.add(btnClose);
 		btnClose.setForeground(Color.WHITE);
 		btnClose.setFont(new Font("Segoe UI", Font.BOLD, 18));
@@ -250,6 +251,30 @@ public class bearCalcOptions {
 		btnOrangeTheme.setBackground(new Color(230, 81, 0));
 		btnOrangeTheme.setBounds(71, 299, 175, 40);
 		frame.getContentPane().add(btnOrangeTheme);
+		
+		JLabel lblDeveloper = new JLabel("Developer");
+		lblDeveloper.setForeground(Color.WHITE);
+		lblDeveloper.setFont(new Font("Segoe UI", Font.BOLD, 25));
+		lblDeveloper.setBounds(284, 63, 162, 33);
+		frame.getContentPane().add(lblDeveloper);
+		
+		JLabel lblDeveloperName = new JLabel("Janber Calamba :D");
+		lblDeveloperName.setForeground(Color.WHITE);
+		lblDeveloperName.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		lblDeveloperName.setBounds(284, 106, 162, 33);
+		frame.getContentPane().add(lblDeveloperName);
+		
+		JLabel lblIMadeThis = new JLabel("<html><strong>Dev Message:</strong><br>i made this calculator as practice"
+				+ "<br>but i decided to develop this fully"
+				+ "<br>kasi bakit ba gusto ko maangas"
+				+ "<br><strong>aone mahal na mahal kita uwu</strong><br>"
+				+ "<br>Dev build 7-28-2022</html>");
+		lblIMadeThis.setVerticalAlignment(SwingConstants.TOP);
+		lblIMadeThis.setToolTipText("");
+		lblIMadeThis.setForeground(Color.WHITE);
+		lblIMadeThis.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		lblIMadeThis.setBounds(284, 146, 292, 193);
+		frame.getContentPane().add(lblIMadeThis);
 		
 		
 	}

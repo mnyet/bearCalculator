@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
-public class bearCalc {
+public class bearCalcSci {
 
 	private JFrame frame;
 	private int mouseX, mouseY;
@@ -30,7 +30,6 @@ public class bearCalc {
 	private JTextField textFieldInput;
 	private String primaryColor = new String();
 	private String secondaryColor = new String();
-	private static int calcMode;
 
 	/**
 	 * Launch the application.
@@ -45,15 +44,11 @@ public class bearCalc {
 				// creates the default theme
 				FileWriter createData = new FileWriter("bearprefs.dat");
 				// this will be the default parameters for the theme
-				createData.write("#005f5f\n#007373");
+				createData.write("#005f5f\n#007373\n0");
 				createData.close();
-				FileWriter createMode = new FileWriter("bearmode.dat");
-				// this will be the default parameters for the theme
-				createMode.write("0");
-				createMode.close();
 				Process hide = Runtime.getRuntime().exec("attrib +H bearprefs.dat");
-				Process hideMode = Runtime.getRuntime().exec("attrib +H bearmode.dat");
-				System.out.println("Files Created!");
+				System.out.println("File Created!");
+				
 			} else {
 				System.out.println("File Already Exists!");
 			} 
@@ -63,46 +58,37 @@ public class bearCalc {
 				e.printStackTrace();
 			}
 		
-		
+	}
+	
+	/**
+	 * Launches the application from the boolean sciMode.
+	 */
+	
+	public void setVisible(boolean b) {
+		// TODO Auto-generated method stub
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					BufferedReader br = new BufferedReader(new FileReader("bearprefs.dat"));
 					String themeColor1 = br.readLine();
 					String themeColor2 = br.readLine();
-					
-					BufferedReader brMode = new BufferedReader(new FileReader("bearmode.dat"));
-					calcMode = Integer.parseInt(brMode.readLine());
-					
 					br.close();
-					brMode.close();
-					if(calcMode == 0) {
-						bearCalc window = new bearCalc();
-						window.frame.setVisible(true);
-					}
-					else if(calcMode == 1) {
-						bearCalcSci sciMode = new bearCalcSci();
-						sciMode.setVisible(true);
-					}
+					bearCalcSci window = new bearCalcSci();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		
 	}
 
 	/**
 	 * Create the application.
+	 * @wbp.parser.entryPoint
 	 */
-	public bearCalc() {
+	public bearCalcSci() {
 		initialize();
-	}
-	
-	// executes when normal mode is toggled from scientific mode.
-	public void setVisible(boolean b) {
-		// TODO Auto-generated method stub
-		bearCalc window = new bearCalc();
-		window.frame.setVisible(true);
 	}
 
 	/**
@@ -114,29 +100,22 @@ public class bearCalc {
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("bearprefs.dat"));
-			BufferedReader brMode = new BufferedReader(new FileReader("bearmode.dat"));
 			
 			// color palette for themes
 			primaryColor = br.readLine();
 			secondaryColor = br.readLine();
-			//scientific or normal
-			
 			br.close();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
-		System.out.println(primaryColor);
-		System.out.println(secondaryColor);
-		System.out.println(calcMode);
-		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.decode(secondaryColor));
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setUndecorated(true);
-		frame.setBounds(100, 100, 361, 475);
+		frame.setBounds(100, 100, 710, 475);
 		frame.setLocationRelativeTo(null);
 		
 		JPanel panelTitleBar = new JPanel();
@@ -157,7 +136,7 @@ public class bearCalc {
 		});
 		
 		panelTitleBar.setBackground(Color.decode(primaryColor));
-		panelTitleBar.setBounds(0, 0, 361, 52);
+		panelTitleBar.setBounds(0, 0, 730, 52);
 		frame.getContentPane().add(panelTitleBar);
 		panelTitleBar.setLayout(null);
 		
@@ -170,7 +149,7 @@ public class bearCalc {
 		});
 		
 		panelTitleBar.setLayout(null);
-		btnClose.setBounds(303, 11, 48, 33);
+		btnClose.setBounds(650, 10, 48, 33);
 		panelTitleBar.add(btnClose);
 		btnClose.setForeground(Color.WHITE);
 		btnClose.setFont(new Font("Segoe UI", Font.BOLD, 18));
@@ -189,7 +168,7 @@ public class bearCalc {
 		btnMinimize.setFocusPainted(false);
 		btnMinimize.setBorderPainted(false);
 		btnMinimize.setBackground(Color.decode(primaryColor));
-		btnMinimize.setBounds(245, 9, 48, 34);
+		btnMinimize.setBounds(592, 9, 48, 34);
 		panelTitleBar.add(btnMinimize);
 		
 		JButton btnOptions = new JButton("OPT");
@@ -204,10 +183,10 @@ public class bearCalc {
 		btnOptions.setFocusPainted(false);
 		btnOptions.setBorderPainted(false);
 		btnOptions.setBackground(Color.decode(primaryColor));
-		btnOptions.setBounds(73, 11, 53, 33);
+		btnOptions.setBounds(73, 10, 53, 33);
 		panelTitleBar.add(btnOptions);
 		
-		JButton btnChangeMode = new JButton("SCI");
+		JButton btnChangeMode = new JButton("NM");
 		btnChangeMode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -221,7 +200,7 @@ public class bearCalc {
 					changeData.close();
 					
 					// change the parameters of the mode if its scientific or normal  mode
-					changeMode.write("1");
+					changeMode.write("0");
 					changeMode.close();
 					
 					Process hide = Runtime.getRuntime().exec("attrib +H bearprefs.dat");
@@ -229,7 +208,7 @@ public class bearCalc {
 					JOptionPane.showMessageDialog(null, "Calculator Set to Scientific Mode!");
 					frame.dispose();
 					// launches scientific mode
-					bearCalcSci sciMode = new bearCalcSci();
+					bearCalc sciMode = new bearCalc();
 					sciMode.setVisible(true);
 					} 
 				catch (IOException e1) {
@@ -240,11 +219,11 @@ public class bearCalc {
 		});
 		btnChangeMode.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnChangeMode.setForeground(Color.WHITE);
-		btnChangeMode.setFont(new Font("Segoe UI Black", Font.BOLD, 10));
+		btnChangeMode.setFont(new Font("Segoe UI Black", Font.BOLD, 9));
 		btnChangeMode.setFocusPainted(false);
 		btnChangeMode.setBorderPainted(false);
 		btnChangeMode.setBackground(Color.decode(secondaryColor));
-		btnChangeMode.setBounds(10, 11, 53, 33);
+		btnChangeMode.setBounds(10, 10, 53, 33);
 		panelTitleBar.add(btnChangeMode);
 		
 		JButton btnSeven = new JButton("7");
@@ -260,7 +239,7 @@ public class bearCalc {
 		btnSeven.setBorderPainted(false);
 		btnSeven.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnSeven.setForeground(Color.WHITE);
-		btnSeven.setBounds(10, 192, 60, 60);
+		btnSeven.setBounds(430, 193, 60, 60);
 		
 		JButton btnFour = new JButton("4");
 		btnFour.addActionListener(new ActionListener() {
@@ -274,7 +253,7 @@ public class bearCalc {
 		btnFour.setFocusPainted(false);
 		btnFour.setBorderPainted(false);
 		btnFour.setBackground(Color.decode(primaryColor));
-		btnFour.setBounds(10, 263, 60, 60);
+		btnFour.setBounds(430, 264, 60, 60);
 		frame.getContentPane().add(btnFour);
 		
 		JButton btnOne = new JButton("1");
@@ -289,7 +268,7 @@ public class bearCalc {
 		btnOne.setFocusPainted(false);
 		btnOne.setBorderPainted(false);
 		btnOne.setBackground(Color.decode(primaryColor));
-		btnOne.setBounds(10, 334, 60, 60);
+		btnOne.setBounds(430, 335, 60, 60);
 		frame.getContentPane().add(btnOne);
 		
 		JButton btnZero = new JButton("0");
@@ -304,7 +283,7 @@ public class bearCalc {
 		btnZero.setFocusPainted(false);
 		btnZero.setBorderPainted(false);
 		btnZero.setBackground(Color.decode(primaryColor));
-		btnZero.setBounds(10, 405, 60, 60);
+		btnZero.setBounds(500, 406, 60, 60);
 		frame.getContentPane().add(btnZero);
 		
 		JButton btnEight = new JButton("8");
@@ -319,7 +298,7 @@ public class bearCalc {
 		btnEight.setFocusPainted(false);
 		btnEight.setBorderPainted(false);
 		btnEight.setBackground(Color.decode(primaryColor));
-		btnEight.setBounds(80, 192, 60, 60);
+		btnEight.setBounds(500, 193, 60, 60);
 		frame.getContentPane().add(btnEight);
 		
 		JButton btnFive = new JButton("5");
@@ -334,7 +313,7 @@ public class bearCalc {
 		btnFive.setFocusPainted(false);
 		btnFive.setBorderPainted(false);
 		btnFive.setBackground(Color.decode(primaryColor));
-		btnFive.setBounds(80, 263, 60, 60);
+		btnFive.setBounds(500, 264, 60, 60);
 		frame.getContentPane().add(btnFive);
 		
 		JButton btnTwo = new JButton("2");
@@ -349,7 +328,7 @@ public class bearCalc {
 		btnTwo.setFocusPainted(false);
 		btnTwo.setBorderPainted(false);
 		btnTwo.setBackground(Color.decode(primaryColor));
-		btnTwo.setBounds(80, 334, 60, 60);
+		btnTwo.setBounds(500, 335, 60, 60);
 		frame.getContentPane().add(btnTwo);
 		
 		JButton btnPoint = new JButton(".");
@@ -364,7 +343,7 @@ public class bearCalc {
 		btnPoint.setFocusPainted(false);
 		btnPoint.setBorderPainted(false);
 		btnPoint.setBackground(Color.decode(primaryColor));
-		btnPoint.setBounds(80, 405, 60, 60);
+		btnPoint.setBounds(570, 406, 60, 60);
 		frame.getContentPane().add(btnPoint);
 		
 		JButton btnBck = new JButton("BCK");
@@ -383,7 +362,7 @@ public class bearCalc {
 		btnBck.setFocusPainted(false);
 		btnBck.setBorderPainted(false);
 		btnBck.setBackground(Color.decode(primaryColor));
-		btnBck.setBounds(150, 405, 60, 60);
+		btnBck.setBounds(640, 264, 60, 60);
 		frame.getContentPane().add(btnBck);
 		
 		JButton btnAddition = new JButton("+");
@@ -398,7 +377,7 @@ public class bearCalc {
 		btnAddition.setFocusPainted(false);
 		btnAddition.setBorderPainted(false);
 		btnAddition.setBackground(Color.decode(primaryColor));
-		btnAddition.setBounds(220, 405, 60, 60);
+		btnAddition.setBounds(430, 406, 60, 60);
 		frame.getContentPane().add(btnAddition);
 		
 		JButton btnEquals = new JButton("=");
@@ -415,7 +394,7 @@ public class bearCalc {
 		btnEquals.setFocusPainted(false);
 		btnEquals.setBorderPainted(false);
 		btnEquals.setBackground(Color.decode(primaryColor));
-		btnEquals.setBounds(290, 405, 60, 60);
+		btnEquals.setBounds(640, 335, 60, 131);
 		frame.getContentPane().add(btnEquals);
 		
 		JButton btnThree = new JButton("3");
@@ -430,7 +409,7 @@ public class bearCalc {
 		btnThree.setFocusPainted(false);
 		btnThree.setBorderPainted(false);
 		btnThree.setBackground(Color.decode(primaryColor));
-		btnThree.setBounds(150, 334, 60, 60);
+		btnThree.setBounds(570, 335, 60, 60);
 		frame.getContentPane().add(btnThree);
 		
 		JButton btnSix = new JButton("6");
@@ -445,7 +424,7 @@ public class bearCalc {
 		btnSix.setFocusPainted(false);
 		btnSix.setBorderPainted(false);
 		btnSix.setBackground(Color.decode(primaryColor));
-		btnSix.setBounds(150, 263, 60, 60);
+		btnSix.setBounds(570, 264, 60, 60);
 		frame.getContentPane().add(btnSix);
 		
 		JButton btnNine = new JButton("9");
@@ -460,7 +439,7 @@ public class bearCalc {
 		btnNine.setFocusPainted(false);
 		btnNine.setBorderPainted(false);
 		btnNine.setBackground(Color.decode(primaryColor));
-		btnNine.setBounds(150, 192, 60, 60);
+		btnNine.setBounds(570, 193, 60, 60);
 		frame.getContentPane().add(btnNine);
 		
 		JButton btnDivision = new JButton("/");
@@ -475,7 +454,7 @@ public class bearCalc {
 		btnDivision.setFocusPainted(false);
 		btnDivision.setBorderPainted(false);
 		btnDivision.setBackground(Color.decode(primaryColor));
-		btnDivision.setBounds(220, 192, 60, 60);
+		btnDivision.setBounds(360, 264, 60, 60);
 		frame.getContentPane().add(btnDivision);
 		
 		JButton btnMultiplication = new JButton("\u00D7");
@@ -489,7 +468,7 @@ public class bearCalc {
 		btnMultiplication.setFocusPainted(false);
 		btnMultiplication.setBorderPainted(false);
 		btnMultiplication.setBackground(Color.decode(primaryColor));
-		btnMultiplication.setBounds(220, 334, 60, 60);
+		btnMultiplication.setBounds(360, 406, 60, 60);
 		frame.getContentPane().add(btnMultiplication);
 		
 		JButton btnSubtraction = new JButton("-");
@@ -504,7 +483,7 @@ public class bearCalc {
 		btnSubtraction.setFocusPainted(false);
 		btnSubtraction.setBorderPainted(false);
 		btnSubtraction.setBackground(Color.decode(primaryColor));
-		btnSubtraction.setBounds(290, 334, 60, 60);
+		btnSubtraction.setBounds(360, 335, 60, 60);
 		frame.getContentPane().add(btnSubtraction);
 		
 		JButton btnParenthesesOpen = new JButton("(");
@@ -519,7 +498,7 @@ public class bearCalc {
 		btnParenthesesOpen.setFocusPainted(false);
 		btnParenthesesOpen.setBorderPainted(false);
 		btnParenthesesOpen.setBackground(Color.decode(primaryColor));
-		btnParenthesesOpen.setBounds(220, 263, 60, 60);
+		btnParenthesesOpen.setBounds(290, 193, 60, 60);
 		frame.getContentPane().add(btnParenthesesOpen);
 		
 		JButton btnAllClear = new JButton("AC");
@@ -534,17 +513,16 @@ public class bearCalc {
 		btnAllClear.setFocusPainted(false);
 		btnAllClear.setBorderPainted(false);
 		btnAllClear.setBackground(Color.decode(primaryColor));
-		btnAllClear.setBounds(290, 192, 60, 60);
+		btnAllClear.setBounds(640, 193, 60, 60);
 		frame.getContentPane().add(btnAllClear);
 		
 		textFieldInput = new JTextField();
-		textFieldInput.setEditable(false);
 		textFieldInput.setText("0");
 		textFieldInput.setForeground(Color.WHITE);
 		textFieldInput.setHorizontalAlignment(SwingConstants.RIGHT);
 		textFieldInput.setFont(new Font("Segoe UI", Font.PLAIN, 50));
 		textFieldInput.setBackground(Color.decode(secondaryColor));
-		textFieldInput.setBounds(10, 63, 340, 118);
+		textFieldInput.setBounds(10, 63, 690, 118);
 		textFieldInput.setBorder(null);
 		frame.getContentPane().add(textFieldInput);
 		textFieldInput.setColumns(10);
@@ -561,8 +539,173 @@ public class bearCalc {
 		btnParenthesesClose.setFocusPainted(false);
 		btnParenthesesClose.setBorderPainted(false);
 		btnParenthesesClose.setBackground(Color.decode(primaryColor));
-		btnParenthesesClose.setBounds(290, 263, 60, 60);
+		btnParenthesesClose.setBounds(360, 193, 60, 60);
 		frame.getContentPane().add(btnParenthesesClose);
+		
+		JButton btnParenthesesOpen_1 = new JButton("TAN");
+		btnParenthesesOpen_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnParenthesesOpen_1.setForeground(Color.WHITE);
+		btnParenthesesOpen_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
+		btnParenthesesOpen_1.setFocusPainted(false);
+		btnParenthesesOpen_1.setBorderPainted(false);
+		btnParenthesesOpen_1.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_1.setBounds(220, 193, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_1);
+		
+		JButton btnParenthesesOpen_2 = new JButton("COS");
+		btnParenthesesOpen_2.setForeground(Color.WHITE);
+		btnParenthesesOpen_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
+		btnParenthesesOpen_2.setFocusPainted(false);
+		btnParenthesesOpen_2.setBorderPainted(false);
+		btnParenthesesOpen_2.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_2.setBounds(150, 193, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_2);
+		
+		JButton btnParenthesesOpen_3 = new JButton("SIN");
+		btnParenthesesOpen_3.setForeground(Color.WHITE);
+		btnParenthesesOpen_3.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
+		btnParenthesesOpen_3.setFocusPainted(false);
+		btnParenthesesOpen_3.setBorderPainted(false);
+		btnParenthesesOpen_3.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_3.setBounds(80, 193, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_3);
+		
+		JButton btnParenthesesOpen_4 = new JButton("SQRT");
+		btnParenthesesOpen_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnParenthesesOpen_4.setForeground(Color.WHITE);
+		btnParenthesesOpen_4.setFont(new Font("Segoe UI Black", Font.PLAIN, 8));
+		btnParenthesesOpen_4.setFocusPainted(false);
+		btnParenthesesOpen_4.setBorderPainted(false);
+		btnParenthesesOpen_4.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_4.setBounds(10, 193, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_4);
+		
+		JButton btnParenthesesOpen_4_1 = new JButton("ABS");
+		btnParenthesesOpen_4_1.setForeground(Color.WHITE);
+		btnParenthesesOpen_4_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
+		btnParenthesesOpen_4_1.setFocusPainted(false);
+		btnParenthesesOpen_4_1.setBorderPainted(false);
+		btnParenthesesOpen_4_1.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_4_1.setBounds(290, 406, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_4_1);
+		
+		JButton btnParenthesesOpen_4_3 = new JButton("RAD");
+		btnParenthesesOpen_4_3.setForeground(Color.WHITE);
+		btnParenthesesOpen_4_3.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		btnParenthesesOpen_4_3.setFocusPainted(false);
+		btnParenthesesOpen_4_3.setBorderPainted(false);
+		btnParenthesesOpen_4_3.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_4_3.setBounds(150, 406, 130, 60);
+		frame.getContentPane().add(btnParenthesesOpen_4_3);
+		
+		JButton btnParenthesesOpen_4_5 = new JButton("DEG");
+		btnParenthesesOpen_4_5.setForeground(Color.WHITE);
+		btnParenthesesOpen_4_5.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		btnParenthesesOpen_4_5.setFocusPainted(false);
+		btnParenthesesOpen_4_5.setBorderPainted(false);
+		btnParenthesesOpen_4_5.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_4_5.setBounds(10, 406, 130, 60);
+		frame.getContentPane().add(btnParenthesesOpen_4_5);
+		
+		JButton btnParenthesesOpen_4_2_1 = new JButton("^");
+		btnParenthesesOpen_4_2_1.setForeground(Color.WHITE);
+		btnParenthesesOpen_4_2_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnParenthesesOpen_4_2_1.setFocusPainted(false);
+		btnParenthesesOpen_4_2_1.setBorderPainted(false);
+		btnParenthesesOpen_4_2_1.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_4_2_1.setBounds(290, 335, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_4_2_1);
+		
+		JButton btnParenthesesOpen_4_2_2 = new JButton("TANH");
+		btnParenthesesOpen_4_2_2.setForeground(Color.WHITE);
+		btnParenthesesOpen_4_2_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 8));
+		btnParenthesesOpen_4_2_2.setFocusPainted(false);
+		btnParenthesesOpen_4_2_2.setBorderPainted(false);
+		btnParenthesesOpen_4_2_2.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_4_2_2.setBounds(220, 335, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_4_2_2);
+		
+		JButton btnParenthesesOpen_4_2_3 = new JButton("COSH");
+		btnParenthesesOpen_4_2_3.setForeground(Color.WHITE);
+		btnParenthesesOpen_4_2_3.setFont(new Font("Segoe UI Black", Font.PLAIN, 8));
+		btnParenthesesOpen_4_2_3.setFocusPainted(false);
+		btnParenthesesOpen_4_2_3.setBorderPainted(false);
+		btnParenthesesOpen_4_2_3.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_4_2_3.setBounds(150, 335, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_4_2_3);
+		
+		JButton btnParenthesesOpen_4_2_4 = new JButton("SINH");
+		btnParenthesesOpen_4_2_4.setForeground(Color.WHITE);
+		btnParenthesesOpen_4_2_4.setFont(new Font("Segoe UI Black", Font.PLAIN, 8));
+		btnParenthesesOpen_4_2_4.setFocusPainted(false);
+		btnParenthesesOpen_4_2_4.setBorderPainted(false);
+		btnParenthesesOpen_4_2_4.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_4_2_4.setBounds(80, 335, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_4_2_4);
+		
+		JButton btnParenthesesOpen_4_2_5 = new JButton("\u03C0");
+		btnParenthesesOpen_4_2_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnParenthesesOpen_4_2_5.setForeground(Color.WHITE);
+		btnParenthesesOpen_4_2_5.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		btnParenthesesOpen_4_2_5.setFocusPainted(false);
+		btnParenthesesOpen_4_2_5.setBorderPainted(false);
+		btnParenthesesOpen_4_2_5.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_4_2_5.setBounds(10, 335, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_4_2_5);
+		
+		JButton btnParenthesesOpen_4_2_6 = new JButton("EXP");
+		btnParenthesesOpen_4_2_6.setForeground(Color.WHITE);
+		btnParenthesesOpen_4_2_6.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
+		btnParenthesesOpen_4_2_6.setFocusPainted(false);
+		btnParenthesesOpen_4_2_6.setBorderPainted(false);
+		btnParenthesesOpen_4_2_6.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_4_2_6.setBounds(10, 264, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_4_2_6);
+		
+		JButton btnParenthesesOpen_4_2_7 = new JButton("SEC");
+		btnParenthesesOpen_4_2_7.setForeground(Color.WHITE);
+		btnParenthesesOpen_4_2_7.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
+		btnParenthesesOpen_4_2_7.setFocusPainted(false);
+		btnParenthesesOpen_4_2_7.setBorderPainted(false);
+		btnParenthesesOpen_4_2_7.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_4_2_7.setBounds(80, 264, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_4_2_7);
+		
+		JButton btnParenthesesOpen_4_2_8 = new JButton("CSC");
+		btnParenthesesOpen_4_2_8.setForeground(Color.WHITE);
+		btnParenthesesOpen_4_2_8.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
+		btnParenthesesOpen_4_2_8.setFocusPainted(false);
+		btnParenthesesOpen_4_2_8.setBorderPainted(false);
+		btnParenthesesOpen_4_2_8.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_4_2_8.setBounds(150, 264, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_4_2_8);
+		
+		JButton btnParenthesesOpen_4_2_9 = new JButton("COT");
+		btnParenthesesOpen_4_2_9.setForeground(Color.WHITE);
+		btnParenthesesOpen_4_2_9.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
+		btnParenthesesOpen_4_2_9.setFocusPainted(false);
+		btnParenthesesOpen_4_2_9.setBorderPainted(false);
+		btnParenthesesOpen_4_2_9.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_4_2_9.setBounds(220, 264, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_4_2_9);
+		
+		JButton btnParenthesesOpen_4_2_10 = new JButton("TG");
+		btnParenthesesOpen_4_2_10.setForeground(Color.WHITE);
+		btnParenthesesOpen_4_2_10.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
+		btnParenthesesOpen_4_2_10.setFocusPainted(false);
+		btnParenthesesOpen_4_2_10.setBorderPainted(false);
+		btnParenthesesOpen_4_2_10.setBackground(Color.decode(primaryColor));
+		btnParenthesesOpen_4_2_10.setBounds(290, 264, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen_4_2_10);
 		
 		
 	}
