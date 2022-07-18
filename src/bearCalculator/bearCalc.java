@@ -5,18 +5,19 @@ import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import java.awt.SystemColor;
-import java.awt.FlowLayout;
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
@@ -31,11 +32,38 @@ public class bearCalc {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		System.gc();
+		
+		try {
+			File userdata = new File("bearprefs.dat");
+			
+			if(userdata.createNewFile()) {
+				// creates the default theme
+				FileWriter createData = new FileWriter("bearprefs.dat");
+				// this will be the default parameters for the theme
+				createData.write("#005f5f\n#007373");
+				createData.close();
+				Process hide = Runtime.getRuntime().exec("attrib +H bearprefs.dat");
+				System.out.println("File Created!");
+				
+			} else {
+				System.out.println("File Already Exists!");
+			} 
+		}	
+		catch (IOException e) {
+				System.out.println("Error Occurred.");
+				e.printStackTrace();
+			}
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					bearCalc window = new bearCalc();
 					window.frame.setVisible(true);
+					BufferedReader br = new BufferedReader(new FileReader("bearprefs.dat"));
+					String themeColor1 = br.readLine();
+					String themeColor2 = br.readLine();
+					br.close();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,8 +82,26 @@ public class bearCalc {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		String primaryColor = "";
+		String secondaryColor = "";
+		
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("bearprefs.dat"));
+			
+			// color palette for themes
+			primaryColor = br.readLine();
+			secondaryColor = br.readLine();
+			br.close();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		System.out.println(primaryColor);
+		System.out.println(secondaryColor);
+		
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(0, 114, 114));
+		frame.getContentPane().setBackground(Color.decode(secondaryColor));
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setUndecorated(true);
@@ -79,7 +125,7 @@ public class bearCalc {
 			}
 		});
 		
-		panelTitleBar.setBackground(new Color(0, 95, 95));
+		panelTitleBar.setBackground(Color.decode(primaryColor));
 		panelTitleBar.setBounds(0, 0, 361, 52);
 		frame.getContentPane().add(panelTitleBar);
 		panelTitleBar.setLayout(null);
@@ -87,6 +133,7 @@ public class bearCalc {
 		JButton btnClose = new JButton("X");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.gc();
 				System.exit(0);
 			}
 		});
@@ -98,7 +145,36 @@ public class bearCalc {
 		btnClose.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		btnClose.setFocusPainted(false);
 		btnClose.setBorderPainted(false);
-		btnClose.setBackground(new Color(0, 95, 95));
+		btnClose.setBackground(Color.decode(primaryColor));
+		
+		JButton btnMinimize = new JButton("_");
+		btnMinimize.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setExtendedState(JFrame.ICONIFIED);
+			}
+		});
+		btnMinimize.setForeground(Color.WHITE);
+		btnMinimize.setFont(new Font("Segoe UI Black", Font.BOLD, 22));
+		btnMinimize.setFocusPainted(false);
+		btnMinimize.setBorderPainted(false);
+		btnMinimize.setBackground(Color.decode(primaryColor));
+		btnMinimize.setBounds(249, 9, 53, 33);
+		panelTitleBar.add(btnMinimize);
+		
+		JButton btnOptions = new JButton("...");
+		btnOptions.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				bearCalcOptions options = new bearCalcOptions();
+				options.setVisible(true);
+			}
+		});
+		btnOptions.setForeground(Color.WHITE);
+		btnOptions.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		btnOptions.setFocusPainted(false);
+		btnOptions.setBorderPainted(false);
+		btnOptions.setBackground(Color.decode(primaryColor));
+		btnOptions.setBounds(10, 11, 53, 33);
+		panelTitleBar.add(btnOptions);
 		
 		JButton btnSeven = new JButton("7");
 		btnSeven.addActionListener(new ActionListener() {
@@ -108,7 +184,7 @@ public class bearCalc {
 			}
 		});
 		frame.getContentPane().add(btnSeven);
-		btnSeven.setBackground(new Color(0, 95, 95));
+		btnSeven.setBackground(Color.decode(primaryColor));
 		btnSeven.setFocusPainted(false);
 		btnSeven.setBorderPainted(false);
 		btnSeven.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
@@ -126,7 +202,7 @@ public class bearCalc {
 		btnFour.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnFour.setFocusPainted(false);
 		btnFour.setBorderPainted(false);
-		btnFour.setBackground(new Color(0, 95, 95));
+		btnFour.setBackground(Color.decode(primaryColor));
 		btnFour.setBounds(10, 263, 60, 60);
 		frame.getContentPane().add(btnFour);
 		
@@ -141,7 +217,7 @@ public class bearCalc {
 		btnOne.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnOne.setFocusPainted(false);
 		btnOne.setBorderPainted(false);
-		btnOne.setBackground(new Color(0, 95, 95));
+		btnOne.setBackground(Color.decode(primaryColor));
 		btnOne.setBounds(10, 334, 60, 60);
 		frame.getContentPane().add(btnOne);
 		
@@ -156,7 +232,7 @@ public class bearCalc {
 		btnZero.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnZero.setFocusPainted(false);
 		btnZero.setBorderPainted(false);
-		btnZero.setBackground(new Color(0, 95, 95));
+		btnZero.setBackground(Color.decode(primaryColor));
 		btnZero.setBounds(10, 405, 60, 60);
 		frame.getContentPane().add(btnZero);
 		
@@ -171,7 +247,7 @@ public class bearCalc {
 		btnEight.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnEight.setFocusPainted(false);
 		btnEight.setBorderPainted(false);
-		btnEight.setBackground(new Color(0, 95, 95));
+		btnEight.setBackground(Color.decode(primaryColor));
 		btnEight.setBounds(80, 191, 60, 60);
 		frame.getContentPane().add(btnEight);
 		
@@ -186,7 +262,7 @@ public class bearCalc {
 		btnFive.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnFive.setFocusPainted(false);
 		btnFive.setBorderPainted(false);
-		btnFive.setBackground(new Color(0, 95, 95));
+		btnFive.setBackground(Color.decode(primaryColor));
 		btnFive.setBounds(80, 263, 60, 60);
 		frame.getContentPane().add(btnFive);
 		
@@ -201,7 +277,7 @@ public class bearCalc {
 		btnTwo.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnTwo.setFocusPainted(false);
 		btnTwo.setBorderPainted(false);
-		btnTwo.setBackground(new Color(0, 95, 95));
+		btnTwo.setBackground(Color.decode(primaryColor));
 		btnTwo.setBounds(80, 334, 60, 60);
 		frame.getContentPane().add(btnTwo);
 		
@@ -216,7 +292,7 @@ public class bearCalc {
 		btnPoint.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnPoint.setFocusPainted(false);
 		btnPoint.setBorderPainted(false);
-		btnPoint.setBackground(new Color(0, 95, 95));
+		btnPoint.setBackground(Color.decode(primaryColor));
 		btnPoint.setBounds(80, 405, 60, 60);
 		frame.getContentPane().add(btnPoint);
 		
@@ -235,7 +311,7 @@ public class bearCalc {
 		btnBck.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 		btnBck.setFocusPainted(false);
 		btnBck.setBorderPainted(false);
-		btnBck.setBackground(new Color(0, 95, 95));
+		btnBck.setBackground(Color.decode(primaryColor));
 		btnBck.setBounds(150, 405, 60, 60);
 		frame.getContentPane().add(btnBck);
 		
@@ -250,7 +326,7 @@ public class bearCalc {
 		btnAddition.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnAddition.setFocusPainted(false);
 		btnAddition.setBorderPainted(false);
-		btnAddition.setBackground(new Color(0, 95, 95));
+		btnAddition.setBackground(Color.decode(primaryColor));
 		btnAddition.setBounds(220, 405, 60, 60);
 		frame.getContentPane().add(btnAddition);
 		
@@ -259,6 +335,7 @@ public class bearCalc {
 			public void actionPerformed(ActionEvent e) {
 				Expression exp = new Expression(value.toString());
 				String result = String.valueOf(exp.calculate());
+				value = "";
 				textFieldInput.setText(result);
 			}
 		});
@@ -266,7 +343,7 @@ public class bearCalc {
 		btnEquals.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnEquals.setFocusPainted(false);
 		btnEquals.setBorderPainted(false);
-		btnEquals.setBackground(new Color(0, 95, 95));
+		btnEquals.setBackground(Color.decode(primaryColor));
 		btnEquals.setBounds(290, 405, 60, 60);
 		frame.getContentPane().add(btnEquals);
 		
@@ -281,7 +358,7 @@ public class bearCalc {
 		btnThree.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnThree.setFocusPainted(false);
 		btnThree.setBorderPainted(false);
-		btnThree.setBackground(new Color(0, 95, 95));
+		btnThree.setBackground(Color.decode(primaryColor));
 		btnThree.setBounds(150, 334, 60, 60);
 		frame.getContentPane().add(btnThree);
 		
@@ -296,7 +373,7 @@ public class bearCalc {
 		btnSix.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnSix.setFocusPainted(false);
 		btnSix.setBorderPainted(false);
-		btnSix.setBackground(new Color(0, 95, 95));
+		btnSix.setBackground(Color.decode(primaryColor));
 		btnSix.setBounds(150, 263, 60, 60);
 		frame.getContentPane().add(btnSix);
 		
@@ -311,7 +388,7 @@ public class bearCalc {
 		btnNine.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnNine.setFocusPainted(false);
 		btnNine.setBorderPainted(false);
-		btnNine.setBackground(new Color(0, 95, 95));
+		btnNine.setBackground(Color.decode(primaryColor));
 		btnNine.setBounds(150, 192, 60, 60);
 		frame.getContentPane().add(btnNine);
 		
@@ -326,7 +403,7 @@ public class bearCalc {
 		btnDivision.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnDivision.setFocusPainted(false);
 		btnDivision.setBorderPainted(false);
-		btnDivision.setBackground(new Color(0, 95, 95));
+		btnDivision.setBackground(Color.decode(primaryColor));
 		btnDivision.setBounds(220, 192, 60, 60);
 		frame.getContentPane().add(btnDivision);
 		
@@ -340,7 +417,7 @@ public class bearCalc {
 		btnMultiplication.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnMultiplication.setFocusPainted(false);
 		btnMultiplication.setBorderPainted(false);
-		btnMultiplication.setBackground(new Color(0, 95, 95));
+		btnMultiplication.setBackground(Color.decode(primaryColor));
 		btnMultiplication.setBounds(220, 334, 60, 60);
 		frame.getContentPane().add(btnMultiplication);
 		
@@ -355,7 +432,7 @@ public class bearCalc {
 		btnSubtraction.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnSubtraction.setFocusPainted(false);
 		btnSubtraction.setBorderPainted(false);
-		btnSubtraction.setBackground(new Color(0, 95, 95));
+		btnSubtraction.setBackground(Color.decode(primaryColor));
 		btnSubtraction.setBounds(290, 334, 60, 60);
 		frame.getContentPane().add(btnSubtraction);
 		
@@ -370,7 +447,7 @@ public class bearCalc {
 		btnParenthesesOpen.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnParenthesesOpen.setFocusPainted(false);
 		btnParenthesesOpen.setBorderPainted(false);
-		btnParenthesesOpen.setBackground(new Color(0, 95, 95));
+		btnParenthesesOpen.setBackground(Color.decode(primaryColor));
 		btnParenthesesOpen.setBounds(220, 263, 60, 60);
 		frame.getContentPane().add(btnParenthesesOpen);
 		
@@ -385,7 +462,7 @@ public class bearCalc {
 		btnAllClear.setFont(new Font("Segoe UI Black", Font.PLAIN, 17));
 		btnAllClear.setFocusPainted(false);
 		btnAllClear.setBorderPainted(false);
-		btnAllClear.setBackground(new Color(0, 95, 95));
+		btnAllClear.setBackground(Color.decode(primaryColor));
 		btnAllClear.setBounds(290, 192, 60, 60);
 		frame.getContentPane().add(btnAllClear);
 		
@@ -395,7 +472,7 @@ public class bearCalc {
 		textFieldInput.setForeground(Color.WHITE);
 		textFieldInput.setHorizontalAlignment(SwingConstants.RIGHT);
 		textFieldInput.setFont(new Font("Segoe UI", Font.PLAIN, 50));
-		textFieldInput.setBackground(new Color(0, 115, 115));
+		textFieldInput.setBackground(Color.decode(secondaryColor));
 		textFieldInput.setBounds(10, 63, 340, 118);
 		textFieldInput.setBorder(null);
 		frame.getContentPane().add(textFieldInput);
@@ -412,7 +489,7 @@ public class bearCalc {
 		btnParenthesesClose.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnParenthesesClose.setFocusPainted(false);
 		btnParenthesesClose.setBorderPainted(false);
-		btnParenthesesClose.setBackground(new Color(0, 95, 95));
+		btnParenthesesClose.setBackground(Color.decode(primaryColor));
 		btnParenthesesClose.setBounds(290, 263, 60, 60);
 		frame.getContentPane().add(btnParenthesesClose);
 		
