@@ -1,5 +1,6 @@
 package bearCalculator;
 
+import org.mariuszgromada.math.mxparser.*;
 import java.awt.Color;
 import java.awt.EventQueue;
 
@@ -254,12 +255,19 @@ public class bearCalc {
 		frame.getContentPane().add(btnAddition);
 		
 		JButton btnEquals = new JButton("=");
+		btnEquals.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Expression exp = new Expression(value.toString());
+				String result = String.valueOf(exp.calculate());
+				textFieldInput.setText(result);
+			}
+		});
 		btnEquals.setForeground(Color.WHITE);
 		btnEquals.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		btnEquals.setFocusPainted(false);
 		btnEquals.setBorderPainted(false);
 		btnEquals.setBackground(new Color(0, 95, 95));
-		btnEquals.setBounds(290, 334, 60, 131);
+		btnEquals.setBounds(290, 405, 60, 60);
 		frame.getContentPane().add(btnEquals);
 		
 		JButton btnThree = new JButton("3");
@@ -333,7 +341,7 @@ public class bearCalc {
 		btnMultiplication.setFocusPainted(false);
 		btnMultiplication.setBorderPainted(false);
 		btnMultiplication.setBackground(new Color(0, 95, 95));
-		btnMultiplication.setBounds(220, 263, 60, 60);
+		btnMultiplication.setBounds(220, 334, 60, 60);
 		frame.getContentPane().add(btnMultiplication);
 		
 		JButton btnSubtraction = new JButton("-");
@@ -348,21 +356,23 @@ public class bearCalc {
 		btnSubtraction.setFocusPainted(false);
 		btnSubtraction.setBorderPainted(false);
 		btnSubtraction.setBackground(new Color(0, 95, 95));
-		btnSubtraction.setBounds(220, 334, 60, 60);
+		btnSubtraction.setBounds(290, 334, 60, 60);
 		frame.getContentPane().add(btnSubtraction);
 		
-		JButton btnParentheses = new JButton("()");
-		btnParentheses.addActionListener(new ActionListener() {
+		JButton btnParenthesesOpen = new JButton("(");
+		btnParenthesesOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				value += "(";
+				textFieldInput.setText(value);
 			}
 		});
-		btnParentheses.setForeground(Color.WHITE);
-		btnParentheses.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		btnParentheses.setFocusPainted(false);
-		btnParentheses.setBorderPainted(false);
-		btnParentheses.setBackground(new Color(0, 95, 95));
-		btnParentheses.setBounds(290, 263, 60, 60);
-		frame.getContentPane().add(btnParentheses);
+		btnParenthesesOpen.setForeground(Color.WHITE);
+		btnParenthesesOpen.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnParenthesesOpen.setFocusPainted(false);
+		btnParenthesesOpen.setBorderPainted(false);
+		btnParenthesesOpen.setBackground(new Color(0, 95, 95));
+		btnParenthesesOpen.setBounds(220, 263, 60, 60);
+		frame.getContentPane().add(btnParenthesesOpen);
 		
 		JButton btnAllClear = new JButton("AC");
 		btnAllClear.addActionListener(new ActionListener() {
@@ -390,6 +400,21 @@ public class bearCalc {
 		textFieldInput.setBorder(null);
 		frame.getContentPane().add(textFieldInput);
 		textFieldInput.setColumns(10);
+		
+		JButton btnParenthesesClose = new JButton(")");
+		btnParenthesesClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				value += ")";
+				textFieldInput.setText(value);
+			}
+		});
+		btnParenthesesClose.setForeground(Color.WHITE);
+		btnParenthesesClose.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnParenthesesClose.setFocusPainted(false);
+		btnParenthesesClose.setBorderPainted(false);
+		btnParenthesesClose.setBackground(new Color(0, 95, 95));
+		btnParenthesesClose.setBounds(290, 263, 60, 60);
+		frame.getContentPane().add(btnParenthesesClose);
 		
 		
 	}
