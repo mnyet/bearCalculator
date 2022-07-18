@@ -6,3 +6,4 @@
 Plans:
 - Calculator History.
 - Other themes than teal.
+- Typable input from keyboard.
